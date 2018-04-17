@@ -1,0 +1,23 @@
+{
+  "name": "blogapi",
+  "version": "1.0.0",
+  "description": "blog post api challenge",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rachelekm/BlogPostsAPI.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rachelekm/BlogPostsAPI/issues"
+  },
+  "homepage": "https://github.com/rachelekm/BlogPostsAPI#readme",
+  "dependencies": {
+    "uuid": "^3.2.1"
+  }
+}
