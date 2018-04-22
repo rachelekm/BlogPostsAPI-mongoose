@@ -6,7 +6,7 @@ const {app, runServer, closeServer} = require('../server');
 const expect = chai.expect;
 chai.use(chaiHttp);
 
-desribe('Blog Post', function() {
+describe('Blog Post', function() {
 	before(function(){
 		return runServer();
 	});
@@ -26,7 +26,36 @@ desribe('Blog Post', function() {
 				expect(object).to.include.keys(expectedKeys);
 			});
 		});
-
 	});
 
+	it('should create blog post on POST', function() {
+		const newObject = {title: "Title1", 
+		content: "Lorem ipsum dolor sit amet.", 
+		author: "Author1", 
+		publishDate: "4/17/18"};
+		return chai.request(app).post('/blog-posts').send(newObject).then(function(res){
+			expect(res).to.be.status(201);
+			expect(res).to.be.json;
+			expect(res.body).to.be.a('object');
+			expect(res.body).to.include.keys("id", "title", "content", "author", "publishDate");
+			expect(res.body.id).to.not.equal(null);
+			expect(res.body).to.deep.equal(Object.assign(newObject, {id: res.body.id}));
+		});
+	});
+
+	it('should update blog post on PUT', function() {
+		return chai.request(app).get('/blog-posts').then(function(res){
+			const objectID = res.body[0].id;
+			const objectUpdates = {id: objectID, 
+				title: res.body[0].title, 
+				content: "Lorem ipsum dolor sit amet.", 
+				author: res.body[0].author, 
+				publishDate: new Date()
+				}
+			return chai.request(app).put(`/blog-posts/${objectID}`).send(objectUpdates);
+		}).then(function(res){
+			expect(res).to.have.status(204);
+			expect(res.body).to.be.a('object');
+		});
+	});
 });
