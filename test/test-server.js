@@ -58,4 +58,13 @@ describe('Blog Post', function() {
 			expect(res.body).to.be.a('object');
 		});
 	});
+
+	it('should delete blog post on DELETE', function() {
+		return chai.request(app).get('/blog-posts').then(function(res){
+			const objectID = res.body[0].id;
+			return chai.request(app).delete(`/blog-posts/${objectID}`);
+		}).then(function(res){
+			expect(res).to.have.status(204);
+		})
+	});
 });
