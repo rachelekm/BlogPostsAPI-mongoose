@@ -1,2 +1,9 @@
 language: node_js
 node_js: node
+deploy:
+  provider: heroku
+  api_key:
+    secure: AvEaQtCpeSllvLMXVP+ZcOUwdJdxqJ6dg781SaTtyXaP5sbyYhDVDhZ/ooyM8B0v9l1dmHwwuYjzysKf3qnKRFCD62ZISg5lbWDYTIKte5RWpJBEBhFMus5cfpvkGkWgJNb0fBcixeVVAd8qB73EH67B7VO/UNLlNh1xR/kHdTJbBft7PnY9AiFbPQE/2w+3EWIwweo+/LpejK060ihT2bwMI/FxPKYXv4yCdDFZgKs2xcwnkZ2FSIfwk7F1Oe4p6kKHUpPD23QjZUg1Pah9YY5E2OSQZ37vaWTI5OECD1AQwwDu4RYSJ2d2RfzMCiR2qNNu/kqeePviVuKxrH+PAPYWZwaLmbPdHR1tLPRxV1D/nbHSSznXWvu0e+6IHjG8NqscOe/yqV+rUgrM2i4ZU8mur02SAx2ooFKSiFJiF0Ax34AzzW47HvAHBVpLoV9VwFTGPRj7h5PCjC+p9g6uCmg6BRze+OpbGBQV5IEPe3UyE0pySWkpwCFjHKTAOsoeyQuR0s38i+xVEJ58/Eg0Xm5rmBqj3Josb/lMdINUZnF4yYCiv6SAdcoq51lqVwksoThlB0snrygcIDiLYoaYGjXvgcxB9N4y3qMphEd+CUcYa4jfkz0UfKT07N+jMzsq96W4HSDe5XWrP/79ESRvSu3R2+Fxngpq4yRWdNLU6YA=
+  app: blooming-chamber-77921
+  on:
+    repo: rachelekm/BlogPostsAPI
