@@ -4,7 +4,7 @@
   "description": "blog post api challenge",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --exit",
     "start": "node server.js"
   },
   "repository": {
@@ -21,5 +21,9 @@
     "express": "^4.16.3",
     "morgan": "^1.9.0",
     "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "mocha": "^5.1.1"
   }
 }
