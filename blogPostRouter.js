@@ -29,20 +29,29 @@ router.get('/:id', (req, res) => {
       	res.status(500).json({ message: 'Internal server error' });
 	});
 });
-/*
+
 router.post('/', jsonParse, (req, res) => {
-	const requiredFields = ["title", "content", "author", "publishDate"];
+	const requiredFields = ["title", "content", "author"];
 	for(let i=0; i<requiredFields.length; i++){
 		if(!(requiredFields[i] in req.body)){
       		const message = `Missing \`${requiredFields[i]}\` in request body`
       		console.error(message);
-      		return res.status(400).send(message);
+      		res.status(400).send(message);
 		}
 	}
-	const item = BlogPosts.create(req.body.title, req.body.content, req.body.author, req.body.publishDate);
-	return res.status(201).json(item);
+	BlogPosts.create( {
+		title: req.body.title,
+		author: {firstName: req.body.author.firstName, lastName: req.body.author.lastName},
+		content: req.body.content
+		}
+	)
+	.then(post => res.status(201).json(post.serialize()))
+	.catch(err => {
+		console.log(err);
+      	res.status(500).json({ message: 'Internal server error' });
+	});
 });
-
+/*
 router.put('/:id', jsonParse, (req, res) => {
 	const requiredFields = ["id", "title", "content", "author", "publishDate"];
 	for(let i=0; i<requiredFields.length; i++){
