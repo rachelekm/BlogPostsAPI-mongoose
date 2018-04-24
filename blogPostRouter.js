@@ -1,15 +1,23 @@
 const express = require('express');
 const router = express.Router();
-
+//const uuid = require('uuid');
 const bodyParser = require('body-parser');
 const jsonParse = bodyParser.json();
 
 const {BlogPosts} = require('./models');
 
 router.get('/', (req, res) => {
-	res.json(BlogPosts.get());
+	BlogPosts.find().then(blogposts => {
+		res.json({blogposts: 
+			blogposts.map((post) => post.seriaize())
+		});
+	})
+	.catch(err => {
+      console.error(err);
+      res.status(500).json({ message: 'Internal server error' });
+    });
 });
-
+/*
 router.post('/', jsonParse, (req, res) => {
 	const requiredFields = ["title", "content", "author", "publishDate"];
 	for(let i=0; i<requiredFields.length; i++){
@@ -52,6 +60,6 @@ router.delete('/:id', (req, res) => {
   BlogPosts.delete(itemID);
   console.log(`Deleted blog post ID: \`${itemID}\``);
   res.status(204).end();
-});
+});*/
 
 module.exports = router;
