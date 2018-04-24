@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 
 app.use(morgan('common'));
 
-app.use('/blog-posts', blogPostRouter);
+app.use('/posts', blogPostRouter);
 
 const {PORT, DATABASE_URL} = require('./config');
 mongoose.connect(DATABASE_URL);
