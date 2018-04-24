@@ -10,7 +10,7 @@ const blogPostSchema = mongoose.Schema({
 });
 
 blogPostSchema.virtual('authorString').get(function() {
-  return `${author.firstName} ${author.lastName}`;
+  return `${this.author.firstName} ${this.author.lastName}`;
 });
 
 blogPostSchema.methods.serialize = function() {
@@ -22,5 +22,5 @@ blogPostSchema.methods.serialize = function() {
   };
 }
 
-const BlogPosts = mongoose.model('blogPost', blogPostSchema);
+const BlogPosts = mongoose.model('BlogPosts', blogPostSchema);
 module.exports = {BlogPosts};

@@ -4,18 +4,30 @@ const router = express.Router();
 const bodyParser = require('body-parser');
 const jsonParse = bodyParser.json();
 
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+
 const {BlogPosts} = require('./models');
 
 router.get('/', (req, res) => {
 	BlogPosts.find().then(blogposts => {
 		res.json({blogposts: 
-			blogposts.map((post) => post.seriaize())
+			blogposts.map((post) => post.serialize())
 		});
 	})
 	.catch(err => {
       console.error(err);
       res.status(500).json({ message: 'Internal server error' });
     });
+});
+
+router.get('/:id', (req, res) => {
+	BlogPosts.findByID(req.body.id)
+	.then((post) => res.json(post.serialize()))
+	.catch(err => {
+		console.log(err);
+      	res.status(500).json({ message: 'Internal server error' });
+	});
 });
 /*
 router.post('/', jsonParse, (req, res) => {
