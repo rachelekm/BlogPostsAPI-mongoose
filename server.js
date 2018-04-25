@@ -19,6 +19,10 @@ app.get('/', (req, res) => {
 app.use(morgan('common'));
 
 app.use('/posts', blogPostRouter);
+app.use('*', (req, res) => {
+  res.status(404).json({message: 'Page not found'});
+});
+
 
 const {PORT, DATABASE_URL} = require('./config');
 mongoose.connect(DATABASE_URL);

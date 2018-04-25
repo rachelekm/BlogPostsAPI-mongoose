@@ -51,9 +51,9 @@ router.post('/', jsonParse, (req, res) => {
       	res.status(500).json({ message: 'Internal server error' });
 	});
 });
-/*
+
 router.put('/:id', jsonParse, (req, res) => {
-	const requiredFields = ["id", "title", "content", "author", "publishDate"];
+	const requiredFields = ["id", "title", "content", "author"];
 	for(let i=0; i<requiredFields.length; i++){
 		if(!(requiredFields[i] in req.body)){
       		const message = `Missing \`${requiredFields[i]}\` in request body`;
@@ -66,21 +66,28 @@ router.put('/:id', jsonParse, (req, res) => {
       	console.error(message);
       	return res.status(400).send(message);
 	}
-	const updatedObject = BlogPosts.update({
-		id: req.params.id,
-		title: req.body.title,
+	BlogPosts.findByIdAndUpdate(req.params.id,
+		{title: req.body.title,
 		content: req.body.content,
-		author: req.body.author,
-		publishDate: req.body.publishDate
+		author: req.body.author}, 
+		{upsert: true, new: true})
+	.then(post => res.status(204).end())
+	.catch(err => {
+		console.log(err);
+		res.status(500).json({message: 'Internal server error'})
 	});
-	res.status(204).end();
 });
 
 router.delete('/:id', (req, res) => {
-  const itemID = req.params.id;
-  BlogPosts.delete(itemID);
-  console.log(`Deleted blog post ID: \`${itemID}\``);
+  BlogPosts.findByIdAndRemove(req.params.id)
+  .then(post => {
+  console.log(`Deleted blog post ID: ${req.params.id}`);
   res.status(204).end();
-});*/
+  })
+  .catch(err => {
+  	console.log(err);
+  	res.status(500).json({message: 'Internal server error'})
+  });
+});
 
 module.exports = router;
